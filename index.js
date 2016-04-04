@@ -11,10 +11,9 @@ module.exports = function(req, res, next){
    * @return {[type]}          [description]
    */
   res.write = function(chunk, encoding){
-    if (ended) {
-      return false;
+    if (!ended) {
+      hash.update(chunk, encoding);
     }
-    hash.update(chunk, encoding);
     write.apply(res, arguments);
   };
   /**
